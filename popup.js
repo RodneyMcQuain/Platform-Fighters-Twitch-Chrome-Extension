@@ -52,19 +52,11 @@ function apiRequest(className) {
         var viewers = data.data[i].viewer_count;
         var pTitleViewers = document.createElement("p");
         pTitleViewers.textContent = title + " - " + viewers + " viewers";
-        // var divUserTitleViewers =  document.createElement("div");
-        // divUserTitleViewers.style.float = "right";
-        // divUserTitleViewers.appendChild(h1Username);
-        // divUserTitleViewers.appendChild(pTitleViewers);
-        //
-        // var imgThumbnail = document.createElement("img");
-        // imgThumbnail.src = data.data[i].thumbnail_url;
 
         var a = document.createElement("a");
         a.href = "https://www.twitch.tv/" + userId;
         a.target = "_blank";
 
-      //  divStream.appendChild(imgThumbnail);
         divStream.appendChild(h1Username);
         divStream.appendChild(pTitleViewers);
         a.appendChild(divStream);
