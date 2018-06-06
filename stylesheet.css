@@ -1,0 +1,83 @@
+ul.navBar {
+    list-style-type: none;
+    text-align: center;
+    width: 400px;
+    margin: 0 auto;
+    margin: 9px 0 10px 0;
+    padding: 0;
+    top: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+}
+
+ul.navBar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.navBar li {
+    display: inline-block;
+}
+
+ul.navBar li a.active {
+    background-color: #6441A4;
+}
+
+ul.navBar li a:hover {
+    filter: brightness(90%);
+}
+
+div.ssbm, div.roa {
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 10px;
+    height: 55px;
+    width: 350px;
+    margin: 0 auto;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+div.first {
+    margin-top: 45px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+img {
+  float: left;
+  width: 35px;
+  height: 35px;
+  padding: 10px;
+}
+
+p {
+    width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    white-space: nowrap;
+}
+
+h1 {
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#container {
+    height: 500px;
+    width: 400px;
+    overflow: scroll;
+    border: 3px solid #333;
+}
