@@ -3,7 +3,7 @@
 
   "name": "Twitch Platform Fighter Extension",
   "description": "This extension will display streams concerning platform fighting games",
-  "version": "1.0",
+  "version": "1.1",
 
   "browser_action": {
    "default_icon": "smashLogo.png",
