@@ -6,73 +6,75 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("liRoa").addEventListener("click", roa);
 });
 
+//runs at program start
 ssbm();
 
-function roa() {
-  removeByClass("roa");
-  removeByClass("ssbm");
-  apiRequest("roa");
-}
-
-function ssbm() {
-  removeByClass("roa");
-  removeByClass("ssbm");
-  apiRequest("ssbm");
-}
-
 function apiRequest(className) {
-  var request = new XMLHttpRequest();
+  let request = new XMLHttpRequest();
 
   removeActive();
   if (className == "ssbm") {
-    request.open('GET', 'https://api.twitch.tv/helix/streams?game_id=16282', true);
+    request.open('GET', 'https://api.twitch.tv/kraken/streams/?game=Super%20Smash%20Bros.%20Melee', true);
     setActive("liSsbm");
   } else if (className == "roa") {
-    request.open('GET', 'https://api.twitch.tv/helix/streams?game_id=488436', true);
+    request.open('GET', 'https://api.twitch.tv/kraken/streams/?game=Rivals%20Of%20Aether', true);
     setActive("liRoa");
   }
 
   request.setRequestHeader('Client-ID', 'e5579fbf0u0374vm05153irzz4qmnk');
 
   request.onload = function () {
-    var data = JSON.parse(this.response);
+    let data = JSON.parse(this.response);
     if (request.status >= 200 && request.status < 400) {
-      for (var i = 0; i < data.data.length; i++) {
-        var divStream = document.createElement('div');
-        if (i == 0) {
+      for (var i = 0; i < data.streams.length; i++) {
+        let divStream = document.createElement("div");
+        if (i == 0)
           divStream.className = className + " first";
-        } else {
+        else if (i == data.streams.length - 1)
+          divStream.className = className + " last";
+        else
           divStream.className = className;
-        }
 
-        var userId = data.data[i].user_id; //placeholder until helix api is updated
-        var h1Username = document.createElement("h1");
-        h1Username.textContent = userId;
-        var title = data.data[i].title;
-        var viewers = data.data[i].viewer_count;
-        var pTitleViewers = document.createElement("p");
-        pTitleViewers.textContent = title + " - " + viewers + " viewers";
+        let displayName = data.streams[i].channel.display_name;
+        let h1DisplayName = document.createElement("h1");
+        h1DisplayName.textContent = displayName;
 
-        var a = document.createElement("a");
-        a.href = "https://www.twitch.tv/" + userId;
-        a.target = "_blank";
+        let title = data.streams[i].channel.status;
+        let pTitle = document.createElement("p");
+        pTitle.textContent = title;
 
-        divStream.appendChild(h1Username);
-        divStream.appendChild(pTitleViewers);
-        a.appendChild(divStream);
-        divContainer.appendChild(a);
+        let viewers = data.streams[i].viewers;
+        let pViewers = document.createElement("p");
+        pViewers.textContent = "\u00A0- " + viewers + " viewers";
+
+        let thumbnail = data.streams[i].preview.small;
+        let imgThumbnail = document.createElement("img");
+        imgThumbnail.src = thumbnail;
+
+        let streamerUrl = data.streams[i].channel.url;
+        let aStreamerUrl = document.createElement("a");
+        aStreamerUrl.href = streamerUrl;
+        aStreamerUrl.target = "_blank";
+
+        divStream.appendChild(imgThumbnail);
+        divStream.appendChild(h1DisplayName);
+        divStream.appendChild(pTitle);
+        divStream.appendChild(pViewers);
+        aStreamerUrl.appendChild(divStream);
+        divContainer.appendChild(aStreamerUrl);
       }
     } else {
-      var divError = document.createElement('div');
+      let divError = document.createElement('div');
       divError.textContent = "Sorry there was an error, " + request.status;
       divContainer.appendChild(divError);
     }
   }
+
   request.send();
 }
 
 function removeByClass(className) {
-  var elements = document.getElementsByClassName(className);
+  let elements = document.getElementsByClassName(className);
   while (elements[0])
     elements[0].parentNode.removeChild(elements[0]);
 }
@@ -84,4 +86,16 @@ function removeActive() {
 
 function setActive(listElement) {
   document.getElementById(listElement).className = "active";
+}
+
+function ssbm() {
+  removeByClass("roa");
+  removeByClass("ssbm");
+  apiRequest("ssbm");
+}
+
+function roa() {
+  removeByClass("roa");
+  removeByClass("ssbm");
+  apiRequest("roa");
 }
