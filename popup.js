@@ -78,8 +78,28 @@ function apiRequest(className) {
   request.send();
 }
 
+function ssbm() {
+  removeNoStream();
+  removeByClass("roa");
+  removeByClass("ssbm");
+  apiRequest("ssbm");
+}
+
+function roa() {
+  removeNoStream();
+  removeByClass("roa");
+  removeByClass("ssbm");
+  apiRequest("roa");
+}
+
 function removeByClass(className) {
   let elements = document.getElementsByClassName(className);
+  while (elements[0])
+    elements[0].parentNode.removeChild(elements[0]);
+}
+
+function removeNoStream() {
+  let elements = document.getElementsByClassName("noStream");
   while (elements[0])
     elements[0].parentNode.removeChild(elements[0]);
 }
@@ -91,16 +111,4 @@ function removeActive() {
 
 function setActive(listElement) {
   document.getElementById(listElement).className = "active";
-}
-
-function ssbm() {
-  removeByClass("roa");
-  removeByClass("ssbm");
-  apiRequest("ssbm");
-}
-
-function roa() {
-  removeByClass("roa");
-  removeByClass("ssbm");
-  apiRequest("roa");
 }
