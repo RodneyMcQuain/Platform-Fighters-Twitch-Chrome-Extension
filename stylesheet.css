@@ -72,14 +72,6 @@ div.noStream {
   border: 1px solid blue;
 }
 
-div.first {
-  margin-top: 10px;
-}
-
-div.last {
-  margin-bottom: 10px;
-}
-
 p, h1 {
   color: #f2f2f2;
   padding: 0;
