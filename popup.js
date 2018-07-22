@@ -26,42 +26,47 @@ function apiRequest(className) {
   request.onload = function () {
     let data = JSON.parse(this.response);
     if (request.status >= 200 && request.status < 400) {
-      for (var i = 0; i < data.streams.length; i++) {
-        let divStream = document.createElement("div");
-        if (i == 0)
-          divStream.className = className + " first";
-        else if (i == data.streams.length - 1)
-          divStream.className = className + " last";
-        else
+      if (data.streams.length == 0) {
+        let divNoStream = document.createElement("div");
+        let h1NoStream = document.createElement("h1");
+        divNoStream.className = "noStream";
+
+        h1NoStream.textContent = "No one is streaming this game";
+        divNoStream.appendChild(h1NoStream);
+        divContainer.appendChild(divNoStream);
+      } else {
+        for (var i = 0; i < data.streams.length; i++) {
+          let divStream = document.createElement("div");
           divStream.className = className;
 
-        let displayName = data.streams[i].channel.display_name;
-        let h1DisplayName = document.createElement("h1");
-        h1DisplayName.textContent = displayName;
+          let displayName = data.streams[i].channel.display_name;
+          let h1DisplayName = document.createElement("h1");
+          h1DisplayName.textContent = displayName;
 
-        let title = data.streams[i].channel.status;
-        let pTitle = document.createElement("p");
-        pTitle.textContent = title;
+          let title = data.streams[i].channel.status;
+          let pTitle = document.createElement("p");
+          pTitle.textContent = title;
 
-        let viewers = data.streams[i].viewers;
-        let pViewers = document.createElement("p");
-        pViewers.textContent = "\u00A0- " + viewers + " viewers";
+          let viewers = data.streams[i].viewers;
+          let pViewers = document.createElement("p");
+          pViewers.textContent = "\u00A0- " + viewers + " viewers";
 
-        let thumbnail = data.streams[i].preview.small;
-        let imgThumbnail = document.createElement("img");
-        imgThumbnail.src = thumbnail;
+          let thumbnail = data.streams[i].preview.small;
+          let imgThumbnail = document.createElement("img");
+          imgThumbnail.src = thumbnail;
 
-        let streamerUrl = data.streams[i].channel.url;
-        let aStreamerUrl = document.createElement("a");
-        aStreamerUrl.href = streamerUrl;
-        aStreamerUrl.target = "_blank";
+          let streamerUrl = data.streams[i].channel.url;
+          let aStreamerUrl = document.createElement("a");
+          aStreamerUrl.href = streamerUrl;
+          aStreamerUrl.target = "_blank";
 
-        divStream.appendChild(imgThumbnail);
-        divStream.appendChild(h1DisplayName);
-        divStream.appendChild(pTitle);
-        divStream.appendChild(pViewers);
-        aStreamerUrl.appendChild(divStream);
-        divContainer.appendChild(aStreamerUrl);
+          divStream.appendChild(imgThumbnail);
+          divStream.appendChild(h1DisplayName);
+          divStream.appendChild(pTitle);
+          divStream.appendChild(pViewers);
+          aStreamerUrl.appendChild(divStream);
+          divContainer.appendChild(aStreamerUrl);
+        }
       }
     } else {
       let divError = document.createElement('div');
