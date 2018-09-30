@@ -20,19 +20,8 @@ function roa() {
 }
 
 function removeAllByClass() {
-  removeNoStream();
-  removeByClass("roa");
-  removeByClass("ssbm");
-}
-
-function removeByClass(className) {
-  let elements = document.getElementsByClassName(className);
-  while (elements[0])
-    elements[0].parentNode.removeChild(elements[0]);
-}
-
-function removeNoStream() {
-  let elements = document.getElementsByClassName("noStream");
+  let elements = document.getElementsByClassName("divToRemove");
+  
   while (elements[0])
     elements[0].parentNode.removeChild(elements[0]);
 }
@@ -113,7 +102,7 @@ function createDivForNoStream() {
 
 function createDivForStream(className) {
   let divStream = document.createElement("div");
-  divStream.className = className;
+  divStream.className = className + " divToRemove";
 
   return divStream;
 }
