@@ -21,7 +21,7 @@ function roa() {
 
 function removeAllByClass() {
   let elements = document.getElementsByClassName("divToRemove");
-  
+
   while (elements[0])
     elements[0].parentNode.removeChild(elements[0]);
 }
@@ -93,7 +93,7 @@ function setActive(listElement) {
 function createDivForNoStream() {
   let divNoStream = document.createElement("div");
   let h1NoStream = document.createElement("h1");
-  divNoStream.className = "noStream";
+  divNoStream.className = "noStream divToRemove";
 
   h1NoStream.textContent = "No one is streaming this game";
   divNoStream.appendChild(h1NoStream);
