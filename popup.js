@@ -43,6 +43,7 @@ function apiRequest(className) {
       } else {
         for (var i = 0; i < data.streams.length; i++) {
           let divStream = createDivForStream(className);
+          let divHover = createDivOnHover(divStream, data, i);
 
           let h1DisplayName = createDisplayName(data, i);
           let pTitle = createTitle(data, i);
@@ -54,6 +55,7 @@ function apiRequest(className) {
           divStream.appendChild(h1DisplayName);
           divStream.appendChild(pTitle);
           divStream.appendChild(pViewers);
+          divStream.appendChild(divHover);
           aStreamerUrl.appendChild(divStream);
           divContainer.appendChild(aStreamerUrl);
         }
@@ -105,6 +107,39 @@ function createDivForStream(className) {
   divStream.className = className + " divToRemove";
 
   return divStream;
+}
+
+function createDivOnHover(divStream, data, index) {
+  let divHoverParent = document.createElement("div");
+  divHoverParent.className = "streamHoverParent";
+
+  let divHoverChild = document.createElement("div");
+  divHoverChild.className = "streamHoverChild";
+
+  let title = data.streams[index].channel.status;
+  divHoverChild.textContent = title;
+  divHoverParent.appendChild(divHoverChild);
+
+  addStreamHoverListeners(divStream, divHoverParent);
+
+  return divHoverParent;
+}
+
+function addStreamHoverListeners(divStream, divHover) {
+  let timer;
+
+  divStream.addEventListener("mouseenter", function(event) {
+    timer = setTimeout(function() {
+      divHover.style.opacity = ".85";
+      divHover.style.filter = "none";
+    }, 750);
+  });
+
+  divStream.addEventListener("mouseleave", function(event) {
+    clearTimeout(timer);
+    divHover.style.opacity = "0";
+    divHover.style.filter = "alpha(opacity = 0)";
+  });
 }
 
 function createDisplayName(data, index) {
