@@ -63,6 +63,7 @@ div.ssbm, div.roa {
 div.ssbm:hover, div.roa:hover {
   opacity: 1;
   background-color: #6441A4;
+  transform: scale(1.02);
 }
 
 div.noStream {
